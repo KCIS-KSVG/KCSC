@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <!-- Logo updated to KCSC Github Raw link -->
     <link rel="icon" href="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/kcsc-logo.png" type="image/png">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/KCIS-KSVG/Pages@main/css/navigator.css">
@@ -19,9 +18,9 @@
     <style>
         :root {
             --primary-color: #920783;
-            --secondary-color: #424245;
-            --dark-gray: #1d1d1f;
-            --medium-gray: #424245;
+            --primary-gradient: linear-gradient(135deg, #920783 0%, #b51a9f 100%);
+            --dark-gray: #1d1d1f; 
+            --medium-gray: #86868b;
             --light-gray: #f5f5f7;
             --text-color: #1d1d1f;
             --header-height: 70px;
@@ -33,18 +32,8 @@
             --status-planned-text: #006d9c;
         }
 
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--light-gray);
@@ -54,47 +43,25 @@
             flex-direction: column;
             min-height: 100vh;
         }
+        body.no-scroll { overflow: hidden; }
+        a { text-decoration: none; color: inherit; }
+        main { padding-top: var(--header-height); flex-grow: 1; }
 
-        body.no-scroll {
-            overflow: hidden;
+        /* --- 导航栏样式 --- */
+        .nav-menu a {
+            color: var(--text-color) !important;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .nav-menu a:hover {
+            color: var(--primary-color) !important;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        main {
-            padding-top: var(--header-height);
-            flex-grow: 1;
-        }
-
-        .page-intro {
-            padding: 60px 30px;
-            background-color: #fff;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .page-container {
-            max-width: 1280px;
-            margin: 0 auto;
-        }
-
-        .page-intro h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .page-intro p {
-            font-size: 1.1rem;
-            color: var(--medium-gray);
-            max-width: 800px;
-        }
-
-        .content-section {
-            padding: 40px 30px 60px;
-        }
+        .page-intro { padding: 60px 30px; background-color: #fff; border-bottom: 1px solid #e0e0e0; }
+        .page-container { max-width: 1280px; margin: 0 auto; }
+        .page-intro h1 { font-family: 'Poppins', sans-serif; font-size: 2.5rem; margin-bottom: 10px; }
+        .page-intro p { font-size: 1.1rem; color: var(--medium-gray); max-width: 800px; }
+        .content-section { padding: 40px 30px 60px; }
 
         #recruiting-cards-container {
             position: relative;
@@ -104,305 +71,196 @@
             gap: 30px;
         }
         
+        /* 卡片样式 */
         .recruiting-card {
-            background-color: #fff;
-            border-radius: 12px;
-            border: 1px solid #e0e0e0;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            background-color: #fff; border-radius: 12px; border: 1px solid #e0e0e0;
+            overflow: hidden; display: flex; flex-direction: column;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;
         }
-
-        .recruiting-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-header {
-            padding: 20px 25px;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .card-header h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.3rem;
-            margin-bottom: 5px;
-        }
-
-        .card-header p {
-            font-size: 0.95rem;
-            color: var(--medium-gray);
-        }
-
-        .card-body {
-            padding: 20px 25px;
-            flex-grow: 1;
-        }
-
-        .card-meta-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 0.9rem;
-            color: var(--dark-gray);
-        }
-
-        .card-meta-item i {
-            font-size: 1.2rem;
-            color: var(--primary-color);
-        }
+        .recruiting-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1); }
+        .card-header { padding: 20px 25px; border-bottom: 1px solid #f0f0f0; }
+        .card-header h3 { font-family: 'Poppins', sans-serif; font-size: 1.3rem; margin-bottom: 5px; }
+        .card-header p { font-size: 0.95rem; color: var(--medium-gray); }
+        .card-body { padding: 20px 25px; flex-grow: 1; }
+        .card-meta-item { display: flex; align-items: center; gap: 12px; font-size: 0.9rem; color: var(--dark-gray); }
+        .card-meta-item i { font-size: 1.2rem; color: var(--primary-color); }
+        .card-meta-item:not(:last-child) { margin-bottom: 15px; }
+        .card-footer { padding: 15px 25px; background-color: #fafafa; border-top: 1px solid #f0f0f0; text-align: right; }
         
-        .card-meta-item:not(:last-child) {
-            margin-bottom: 15px;
-        }
+        .status-badge { display: inline-block; padding: 5px 12px; border-radius: 14px; font-size: 0.85rem; font-weight: 600; }
+        .status-ongoing { background-color: var(--status-ongoing-bg); color: var(--status-ongoing-text); }
+        .status-ended { background-color: var(--status-ended-bg); color: var(--status-ended-text); }
+        .status-planned { background-color: var(--status-planned-bg); color: var(--status-planned-text); }
 
-        .card-footer {
-            padding: 15px 25px;
-            background-color: #fafafa;
-            border-top: 1px solid #f0f0f0;
-            text-align: right;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 14px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .status-ongoing {
-            background-color: var(--status-ongoing-bg);
-            color: var(--status-ongoing-text);
-        }
-        
-        .status-ended {
-            background-color: var(--status-ended-bg);
-            color: var(--status-ended-text);
-        }
-        
-        .status-planned {
-            background-color: var(--status-planned-bg);
-            color: var(--status-planned-text);
-        }
-
+        /* Loading Animation */
         #loading-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(245, 245, 247, 0.7);
-            z-index: 10;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.3s;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(245, 245, 247, 0.7); z-index: 10;
+            display: flex; justify-content: center; align-items: center; transition: opacity 0.3s;
         }
-
         .loader {
-            border: 7px solid #e0e0e0;
-            border-top: 7px solid var(--primary-color);
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1s linear infinite;
+            border: 7px solid #e0e0e0; border-top: 7px solid var(--primary-color);
+            border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite;
         }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
+        /* Modal Styles */
         .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(29, 29, 31, 0.5);
-            backdrop-filter: blur(10px);
-            z-index: 2000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(29, 29, 31, 0.6); backdrop-filter: blur(10px); z-index: 2000;
+            opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            display: flex; justify-content: center; align-items: center;
         }
-
-        .modal-overlay.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
+        .modal-overlay.visible { opacity: 1; pointer-events: auto; }
         .modal-content {
-            background: #fff;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 800px;
-            max-height: 85vh;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            transform: scale(0.95);
-            opacity: 0;
+            background: #fff; border-radius: 16px; width: 90%; max-width: 800px; max-height: 90vh;
+            display: flex; flex-direction: column; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            transform: scale(0.95); opacity: 0;
             transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
+        .modal-overlay.visible .modal-content { transform: scale(1); opacity: 1; }
+        
+        /* Updated Modal Header Layout */
+        .modal-header { 
+            flex-shrink: 0; display: flex; align-items: center; 
+            padding: 25px 30px; border-bottom: 1px solid #f0f0f0; 
+        }
+        .modal-header h2 { 
+            font-family: 'Poppins', sans-serif; font-size: 1.5rem; margin: 0; 
+            font-weight: 700; color: #1d1d1f; flex-grow: 1;
+        }
+        
+        /* Header Badge Style */
+        .header-badge {
+            margin-right: 15px;
+            font-size: 0.8rem;
+            padding: 4px 10px;
+        }
 
-        .modal-overlay.visible .modal-content {
-            transform: scale(1);
+        .modal-close { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--medium-gray); transition: color 0.2s; display: flex; align-items: center;}
+        .modal-close:hover { color: var(--dark-gray); }
+        
+        .modal-body { flex-grow: 1; overflow-y: auto; padding: 30px; }
+        
+        /* Meta Info Style */
+        .modal-meta { display: flex; flex-direction: column; gap: 16px; margin-bottom: 30px; background: #fafafa; padding: 20px; border-radius: 8px; border: 1px solid #f0f0f0; }
+        .meta-item { display: flex; align-items: center; gap: 12px; font-size: 0.95rem; }
+        .meta-item i { color: var(--primary-color); font-size: 1.2rem; width: 20px; text-align: center; }
+        .meta-item-label { font-weight: 600; color: #1d1d1f; margin-right: 5px; }
+        .meta-item-value { color: #555; }
+        
+        #modal-body-content { white-space: pre-wrap; line-height: 1.8; color: #333; font-size: 1rem; text-align: justify; }
+        
+        /* Footer Form Styles */
+        .modal-footer {
+            flex-shrink: 0; padding: 20px 30px; border-top: 1px solid #f0f0f0;
+            background-color: #ffffff; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px;
+            display: flex; flex-direction: column; gap: 15px;
+        }
+
+        /* --- New Tooltip Warning Style --- */
+        .warning-container {
+            display: flex; justify-content: flex-end; /* Right align */
+            margin-bottom: 5px;
+        }
+        
+        .tooltip-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            cursor: help;
+            color: #d32f2f;
+            font-weight: 600;
+            font-size: 0.9rem;
+            gap: 5px;
+        }
+
+        .tooltip-wrapper i { font-size: 1.1rem; }
+
+        .tooltip-text {
+            visibility: hidden;
+            width: 260px;
+            background-color: #1d1d1f;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            
+            /* Positioning */
+            position: absolute;
+            z-index: 10;
+            bottom: 135%;
+            right: 0; /* Align right to not go off screen */
+            
+            /* Animation */
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-weight: normal;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            pointer-events: none;
+        }
+
+        .tooltip-wrapper:hover .tooltip-text {
+            visibility: visible;
             opacity: 1;
         }
 
-        .modal-header {
-            flex-shrink: 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 30px;
-            border-bottom: 1px solid #e0e0e0;
+        /* Tiny triangle for tooltip */
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            right: 20px; /* Match right alignment */
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #1d1d1f transparent transparent transparent;
         }
 
-        .modal-header h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.8rem;
-            margin: 0;
+        /* Dropdown */
+        .form-row { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+        .select-wrapper { position: relative; width: 100%; }
+        .position-select {
+            width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid #d1d1d6;
+            background-color: #fff; font-size: 1rem; color: #1d1d1f; appearance: none;
+            cursor: pointer; transition: border-color 0.2s; font-family: inherit;
         }
+        .position-select:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(146, 7, 131, 0.1); }
+        .select-arrow { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #86868b; }
 
-        .modal-close {
-            background: none;
-            border: none;
-            font-size: 28px;
-            cursor: pointer;
-            color: var(--medium-gray);
+        /* Checkbox */
+        .checkbox-container { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: #424245; user-select: none; }
+        .checkbox-container input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary-color); }
+        .checkbox-container a { color: var(--primary-color); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+        .checkbox-container a:hover { color: #7a066e; }
+
+        /* Button */
+        .submit-btn {
+            width: 100%; padding: 14px; border-radius: 10px; border: none;
+            background: var(--primary-gradient); color: white; font-size: 1rem; font-weight: 700;
+            cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px;
+            box-shadow: 0 4px 10px rgba(146, 7, 131, 0.2);
         }
+        .submit-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(146, 7, 131, 0.3); }
+        .submit-btn:disabled { background: #e5e5ea; color: #aeaeb2; cursor: not-allowed; transform: none; box-shadow: none; }
         
-        .modal-body {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 30px;
+        /* Toast */
+        #toast {
+            visibility: hidden; min-width: 250px; background-color: #333; color: #fff;
+            text-align: center; border-radius: 8px; padding: 12px; position: fixed; z-index: 3000;
+            left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 0.9rem;
+            opacity: 0; transition: opacity 0.3s, bottom 0.3s;
         }
-        
-        #modal-subtitle {
-            font-size: 1.1rem;
-            color: var(--medium-gray);
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-        
-        .modal-meta {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 25px;
-        }
-        
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.95rem;
-        }
-        
-        .meta-item i {
-            color: var(--primary-color);
-            font-size: 1.3rem;
-        }
-
-        .meta-item-label {
-            font-weight: 600;
-            color: var(--dark-gray);
-        }
-
-        .meta-item-value {
-            color: var(--medium-gray);
-        }
-
-        .modal-divider {
-            border: none;
-            border-top: 1px solid #f0f0f0;
-            margin-bottom: 25px;
-        }
-
-        #modal-body-content {
-            white-space: pre-wrap;
-            line-height: 1.8;
-            color: var(--dark-gray);
-        }
-        
-        /* Revised Modal Footer for Double Buttons */
-        .modal-footer {
-            flex-shrink: 0;
-            padding: 20px 30px;
-            border-top: 1px solid #e0e0e0;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 15px;
-        }
-
-        .warning-text {
-            color: #d32f2f;
-            font-size: 0.9rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            text-align: right;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-        }
-
-        .apply-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 24px;
-            color: #fff;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            min-width: 140px;
-            text-align: center;
-        }
-        
-        .btn-tech {
-            background-color: var(--primary-color);
-        }
-        
-        .btn-tech:hover {
-            background-color: #7a066e;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(146, 7, 131, 0.3);
-        }
-
-        .btn-admin {
-            background-color: var(--secondary-color);
-        }
-
-        .btn-admin:hover {
-            background-color: #2c2c2e;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(66, 66, 69, 0.3);
-        }
+        #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
 
         @media (max-width: 768px) {
-            .page-intro { padding: 40px 15px; }
+            .page-intro { padding: 40px 20px; }
             .content-section { padding: 30px 15px; }
             #recruiting-cards-container { grid-template-columns: 1fr; }
-            .modal-footer { align-items: stretch; }
-            .button-group { flex-direction: column; }
-            .warning-text { text-align: center; justify-content: center; }
+            .tooltip-text { right: -20px; } /* Adjust for mobile */
+            .tooltip-text::after { right: 40px; }
         }
     </style>
 </head>
@@ -410,12 +268,10 @@
 <body>
     <header class="site-header">
         <nav class="navigation">
-            <!-- Logo Updated -->
             <a href="#" class="logo-link">
                 <img src="https://raw.githubusercontent.com/KCIS-KSVG/Data/main/embed/kcsc-logo.png" alt="KCSC Logo" class="logo-image">
             </a>
             <ul class="nav-menu">
-                <!-- Navigation Items Updated -->
                 <li><a href="https://ksvg.com.cn/">KSVG 首页</a></li>
                 <li><a href="https://docs.ksvg.com.cn/">KSVG 标准操作程序</a></li>
             </ul>
@@ -426,9 +282,8 @@
     <main>
         <section class="page-intro">
             <div class="page-container">
-                <!-- Heading Text Updated for Context -->
                 <h1>学生会公关组招募</h1>
-                <p>我们欢迎充满热情与创造力的你加入昆山康桥学校中学部学生联合委员会（KCSC）。这里是最新的招募信息。
+                <p>我们欢迎充满热情与创造力的你加入昆山康桥学校中学部学生联合委员会（KCSC）。这里是最新的招募信息。</p>
             </div>
         </section>
         <section class="content-section">
@@ -442,50 +297,67 @@
         </section>
     </main>
     
+    <!-- 详情弹窗 -->
     <div class="modal-overlay" id="details-modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modal-title"></h2>
+                <!-- 新增：状态小框 -->
+                <span id="modal-status-badge" class="status-badge header-badge"></span>
                 <button class="modal-close" id="modal-close-button"><i class="ri-close-line"></i></button>
             </div>
             <div class="modal-body">
-                <p id="modal-subtitle"></p>
                 <div class="modal-meta" id="modal-meta-container"></div>
-                <hr class="modal-divider">
                 <p id="modal-body-content"></p>
             </div>
             <div class="modal-footer">
-                <!-- Warning Text -->
-                <div class="warning-text">
-                    <i class="ri-alert-fill"></i> 提示：每个人每次报名只能选择单个专业区块，全部填写计算为结果无效。
+                
+                <!-- 新增：Tooltip 提示 -->
+                <div class="warning-container">
+                    <div class="tooltip-wrapper">
+                        <i class="ri-error-warning-fill"></i> 注意
+                        <span class="tooltip-text">请仅选择一个方向进行填报，重复或多选将视为无效报名。</span>
+                    </div>
                 </div>
-                <!-- Two Selection Buttons -->
-                <div class="button-group">
-                    <a href="https://redirect.ksvg.com.cn/?https://kcsc.ksvg.com.cn/26s/01" class="apply-button btn-tech" target="_blank" rel="noopener noreferrer">
-                        技术专员类
-                    </a>
-                    <a href="https://redirect.ksvg.com.cn/?https://kcsc.ksvg.com.cn/26s/02" class="apply-button btn-admin" target="_blank" rel="noopener noreferrer">
-                        行政专员类
-                    </a>
+                
+                <div class="form-row">
+                    <!-- 下拉选择 (中文精简) -->
+                    <div class="select-wrapper">
+                        <select id="position-select" class="position-select" onchange="checkFormValidity()">
+                            <option value="" disabled selected>请点击选择您的报名方向...</option>
+                            <option value="tech">技术专员类</option>
+                            <option value="admin">行政专员类</option>
+                        </select>
+                        <i class="ri-arrow-down-s-line select-arrow"></i>
+                    </div>
+
+                    <!-- 勾选条款 -->
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="terms-checkbox" onchange="checkFormValidity()">
+                        <label for="terms-checkbox">我已认真阅读并同意 <a href="https://cdn.jsdelivr.net/gh/KCIS-KSVG/KCSC@main/docs/26S_Recruiting_EXT_Ver3.pdf" target="_blank" onclick="markTermsRead()">学生会公关组招新条款</a></label>
+                    </div>
+
+                    <!-- 提交按钮 -->
+                    <button id="submit-btn" class="submit-btn" disabled>
+                        下一步，填写报名表 <i class="ri-arrow-right-line"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- 提示框 -->
+    <div id="toast">请先点击蓝色文字阅读招新条款</div>
 
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-left">
-                <p>© 2025 KSVG. All Rights Reserved.</p>
-                <p>本站的执行标准和基础数据来自ksvg.com.cn（KSVG组织）</p>
-                <p>本站为ksvg.com.cn子域，并由KSVG提供技术支持</p>
+                <p>© 2025 KCSC & KSVG. All Rights Reserved.</p>
+                <p>本页面由昆山康桥学生会 (KCSC) 运营，KSVG 提供技术架构支持。</p>
                 <div class="footer-socials">
-                    <a href="/" aria-label="Bilibili"
-                        title="Bilibili"><i class="ri-bilibili-fill"></i></a>
-                    <a href="/" aria-label="YouTube" title="YouTube"><i
-                            class="ri-youtube-fill"></i></a>
-                    <a href="mailto:support@ksvg.com.cn" aria-label="Email" title="Email"><i
-                            class="ri-mail-line"></i></a>
+                    <a href="#" aria-label="Bilibili"><i class="ri-bilibili-fill"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="ri-youtube-fill"></i></a>
+                    <a href="mailto:support@ksvg.com.cn" aria-label="Email"><i class="ri-mail-line"></i></a>
                 </div>
             </div>
             <div class="footer-address">
@@ -496,209 +368,208 @@
     </footer>
 
     <script>
-        try {
-            document.addEventListener("DOMContentLoaded", function () {
-                // --- Standard Navigation Menu Logic ---
-                const navToggle = document.querySelector('.nav-toggle'); 
-                const navMenu = document.querySelector('.nav-menu'); 
-                const body = document.body;
-                if (navToggle && navMenu) {
-                    const icon = navToggle.querySelector('i');
-                    const toggleMenu = (forceClose = false) => {
-                        const isActive = navMenu.classList.contains('is-active');
-                        if (forceClose || isActive) {
-                            navMenu.classList.remove('is-active'); 
-                            navToggle.classList.remove('is-active');
-                            body.classList.remove('no-scroll'); 
-                            icon.className = 'ri-menu-line';
-                        } else {
-                            navMenu.classList.add('is-active'); 
-                            navToggle.classList.add('is-active');
-                            body.classList.add('no-scroll'); 
-                            icon.className = 'ri-close-line';
-                        }
-                    };
-                    navToggle.addEventListener('click', () => toggleMenu());
-                    const navLinks = navMenu.querySelectorAll('a');
-                    navLinks.forEach(link => { link.addEventListener('click', () => { setTimeout(() => toggleMenu(true), 100); }); });
-                }
+        let hasClickedPDF = false;
+        let allRecruitments = [];
+        let currentRecruitmentDataGlobal = null;
 
-                // --- Page Specific Logic ---
-                // Data Source kept consistent as requested
-                const RECRUITING_DATA_URL = 'https://raw.githubusercontent.com/KCIS-KSVG/Data/main/progress/08.csv';
-                
-                const ui = {
-                    cardsContainer: document.getElementById('recruiting-cards-container'),
-                    loadingOverlay: document.getElementById('loading-overlay'),
-                    modalOverlay: document.getElementById('details-modal'),
-                    modalTitle: document.getElementById('modal-title'),
-                    modalSubtitle: document.getElementById('modal-subtitle'),
-                    modalMetaContainer: document.getElementById('modal-meta-container'),
-                    modalBody: document.getElementById('modal-body-content'),
-                    modalCloseBtn: document.getElementById('modal-close-button'),
-                };
+        function markTermsRead() { hasClickedPDF = true; }
 
-                let allRecruitments = [];
-
-                function parseCSV(text) {
-                    const lines = text.trim().replace(/^\uFEFF/, "").split(/\r?\n/);
-                    if (lines.length < 2) return [];
-                    const headers = lines[0].split(',').map(h => h.trim());
-                    return lines.slice(1).map(line => {
-                        if (!line.trim()) return null;
-                        const values = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
-                        return headers.reduce((obj, header, index) => {
-                            let value = (values[index] || '').trim();
-                            if (value.startsWith('"') && value.endsWith('"')) {
-                                value = value.slice(1, -1);
-                            }
-                            obj[header] = value;
-                            return obj;
-                        }, {});
-                    }).filter(Boolean);
-                }
-
-                function parseDateString(dateStr) {
-                    const match = dateStr.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
-                    if (!match) return null;
-                    const [, year, month, day] = match;
-                    return new Date(year, month - 1, day);
-                }
-
-                function getRecruitmentStatus(startDateStr, endDateStr) {
-                    const now = new Date();
-                    now.setHours(0, 0, 0, 0); 
-                    
-                    const startDate = parseDateString(startDateStr);
-                    const endDate = parseDateString(endDateStr);
-
-                    if (!startDate || !endDate) return { text: '日期无效', class: 'ended' };
-                    
-                    endDate.setHours(23, 59, 59, 999);
-
-                    if (now < startDate) {
-                        return { text: '未开始', class: 'planned' };
-                    } else if (now > endDate) {
-                        return { text: '已结束', class: 'ended' };
-                    } else {
-                        return { text: '进行中', class: 'ongoing' };
-                    }
-                }
-
-                function renderCards(data) {
-                    ui.cardsContainer.innerHTML = '';
-                    if (data.length === 0) {
-                        ui.cardsContainer.innerHTML = `<p>当前没有新的招募信息。</p>`;
-                        return;
-                    }
-                    
-                    data.forEach(item => {
-                        const status = getRecruitmentStatus(item['开始时间'], item['结束时间']);
-                        const card = document.createElement('div');
-                        card.className = 'recruiting-card';
-                        card.dataset.id = item['自动编号'];
-                        
-                        card.innerHTML = `
-                            <div class="card-header">
-                                <h3>${item['场次名称']}</h3>
-                                <p>${item['副标题']}</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="card-meta-item">
-                                    <i class="ri-calendar-line"></i>
-                                    <span>${item['开始时间']} 至 ${item['结束时间']}</span>
-                                </div>
-                                <div class="card-meta-item">
-                                    <i class="ri-group-line"></i>
-                                    <span>招募对象: ${item['招募对象']}</span>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <span class="status-badge status-${status.class}">${status.text}</span>
-                            </div>
-                        `;
-                        ui.cardsContainer.appendChild(card);
-                    });
-                }
-                
-                const modal = {
-                    open(recruitmentData) {
-                        ui.modalTitle.textContent = recruitmentData['场次名称'];
-                        ui.modalSubtitle.textContent = recruitmentData['副标题'];
-                        ui.modalBody.innerHTML = recruitmentData['正文'].replace(/\\n/g, '<br>');
-                        
-                        // Links are now hardcoded in HTML as requested, ignoring CSV link column for the button
-                        
-                        const metaHTML = `
-                            <div class="meta-item">
-                                <i class="ri-barcode-line"></i>
-                                <span class="meta-item-label">招募编号:</span>
-                                <span class="meta-item-value">${recruitmentData['自动编号']}</span>
-                            </div>
-                            <div class="meta-item">
-                                <i class="ri-calendar-2-line"></i>
-                                <span class="meta-item-label">起止时间:</span>
-                                <span class="meta-item-value">${recruitmentData['开始时间']} 至 ${recruitmentData['结束时间']}</span>
-                            </div>
-                            <div class="meta-item">
-                                <i class="ri-group-2-line"></i>
-                                <span class="meta-item-label">招募对象:</span>
-                                <span class="meta-item-value">${recruitmentData['招募对象']}</span>
-                            </div>
-                        `;
-                        ui.modalMetaContainer.innerHTML = metaHTML;
-
-                        ui.modalOverlay.classList.add('visible');
-                        body.classList.add('no-scroll');
-                    },
-                    close() {
-                        ui.modalOverlay.classList.remove('visible');
-                        body.classList.remove('no-scroll');
-                    }
-                };
-
-                async function initializePage() {
-                    try {
-                        const response = await fetch(`${RECRUITING_DATA_URL}?v=${new Date().getTime()}`);
-                        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                        const csvText = await response.text();
-                        allRecruitments = parseCSV(csvText);
-                        renderCards(allRecruitments);
-                    } catch (error) {
-                        console.error("Failed to load or parse recruitment data:", error);
-                        ui.cardsContainer.innerHTML = `<p style="color: red;">无法加载招募信息，请稍后重试。</p>`;
-                    } finally {
-                        ui.loadingOverlay.style.opacity = '0';
-                        setTimeout(() => ui.loadingOverlay.style.display = 'none', 300);
-                    }
-                }
-
-                // Event Listeners
-                ui.cardsContainer.addEventListener('click', (e) => {
-                    const card = e.target.closest('.recruiting-card');
-                    if (card) {
-                        const id = card.dataset.id;
-                        const data = allRecruitments.find(item => item['自动编号'] === id);
-                        if (data) {
-                            modal.open(data);
-                        }
-                    }
-                });
-                
-                ui.modalCloseBtn.addEventListener('click', modal.close);
-                ui.modalOverlay.addEventListener('click', (e) => {
-                    if (e.target === ui.modalOverlay) {
-                        modal.close();
-                    }
-                });
-
-                initializePage();
-            });
-        } catch (e) {
-            console.error("A critical error occurred on the page:", e);
-            document.getElementById('recruiting-cards-container').innerHTML = `<p style="color: red;">页面脚本发生严重错误，请联系管理员。</p>`;
+        function checkFormValidity() {
+            const position = document.getElementById('position-select').value;
+            const checked = document.getElementById('terms-checkbox').checked;
+            const btn = document.getElementById('submit-btn');
+            
+            if (position && checked) {
+                btn.disabled = false;
+            } else {
+                btn.disabled = true;
+            }
         }
+
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.innerText = message;
+            toast.className = "show";
+            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+
+        function parseCSV(text) {
+            const lines = text.trim().replace(/^\uFEFF/, "").split(/\r?\n/);
+            if (lines.length < 2) return [];
+            const headers = lines[0].split(',').map(h => h.trim());
+            return lines.slice(1).map(line => {
+                if (!line.trim()) return null;
+                const values = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
+                return headers.reduce((obj, header, index) => {
+                    let value = (values[index] || '').trim();
+                    if (value.startsWith('"') && value.endsWith('"')) value = value.slice(1, -1);
+                    obj[header] = value;
+                    return obj;
+                }, {});
+            }).filter(Boolean);
+        }
+
+        function parseDateString(dateStr) {
+            const match = dateStr.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
+            if (!match) return null;
+            const [, year, month, day] = match;
+            return new Date(year, month - 1, day);
+        }
+
+        function getRecruitmentStatus(startDateStr, endDateStr) {
+            const now = new Date(); now.setHours(0, 0, 0, 0); 
+            const startDate = parseDateString(startDateStr);
+            const endDate = parseDateString(endDateStr);
+            if (!startDate || !endDate) return { text: '日期无效', class: 'ended' };
+            endDate.setHours(23, 59, 59, 999);
+            if (now < startDate) { return { text: '未开始', class: 'planned' }; } 
+            else if (now > endDate) { return { text: '已结束', class: 'ended' }; } 
+            else { return { text: '进行中', class: 'ongoing' }; }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            
+            document.getElementById('terms-checkbox').addEventListener('click', function(e) {
+                if (!hasClickedPDF) {
+                    e.preventDefault();
+                    showToast("请先点击紫色下划线文字阅读招新条款，才能继续。");
+                    return false;
+                }
+            });
+
+            // 提交逻辑 (链接逻辑已反转)
+            document.getElementById('submit-btn').onclick = function() {
+                const pos = document.getElementById('position-select').value;
+                const data = currentRecruitmentDataGlobal;
+                if (!data) { alert("数据加载异常，请刷新页面重试。"); return; }
+                
+                let url = "";
+                // 链接逻辑反转: Tech -> Link B, Admin -> Link A
+                if (pos === "tech") url = data['问卷链接_B'];
+                if (pos === "admin") url = data['问卷链接_A'];
+                
+                if (url && url.length > 5) {
+                    window.open(url, '_blank');
+                } else {
+                    alert("该岗位暂未配置有效报名链接，请稍后重试。");
+                }
+            };
+
+            const navToggle = document.querySelector('.nav-toggle'); 
+            const navMenu = document.querySelector('.nav-menu'); 
+            const body = document.body;
+            if (navToggle && navMenu) {
+                const toggleMenu = (forceClose = false) => {
+                    const isActive = navMenu.classList.contains('is-active');
+                    if (forceClose || isActive) {
+                        navMenu.classList.remove('is-active'); navToggle.classList.remove('is-active');
+                        body.classList.remove('no-scroll'); navToggle.querySelector('i').className = 'ri-menu-line';
+                    } else {
+                        navMenu.classList.add('is-active'); navToggle.classList.add('is-active');
+                        body.classList.add('no-scroll'); navToggle.querySelector('i').className = 'ri-close-line';
+                    }
+                };
+                navToggle.addEventListener('click', () => toggleMenu());
+                navMenu.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { setTimeout(() => toggleMenu(true), 100); }); });
+            }
+
+            const RECRUITING_DATA_URL = 'https://raw.githubusercontent.com/KCIS-KSVG/Data/main/progress/08.csv';
+            
+            const ui = {
+                cardsContainer: document.getElementById('recruiting-cards-container'),
+                loadingOverlay: document.getElementById('loading-overlay'),
+                modalOverlay: document.getElementById('details-modal'),
+                modalTitle: document.getElementById('modal-title'),
+                modalStatusBadge: document.getElementById('modal-status-badge'), // New Badge
+                modalMetaContainer: document.getElementById('modal-meta-container'),
+                modalBody: document.getElementById('modal-body-content'),
+                modalCloseBtn: document.getElementById('modal-close-button'),
+            };
+
+            const modalLogic = {
+                open(data) {
+                    currentRecruitmentDataGlobal = data;
+                    
+                    // 设置基本信息
+                    ui.modalTitle.textContent = data['场次名称'];
+                    ui.modalBody.innerHTML = data['正文'].replace(/\\n/g, '<br>');
+                    
+                    // 设置状态标
+                    const status = getRecruitmentStatus(data['开始时间'], data['结束时间']);
+                    ui.modalStatusBadge.textContent = status.text;
+                    ui.modalStatusBadge.className = `status-badge header-badge status-${status.class}`;
+
+                    ui.modalMetaContainer.innerHTML = `
+                        <div class="meta-item"><i class="ri-barcode-line"></i><span class="meta-item-label">招募编号:</span><span class="meta-item-value">${data['自动编号']}</span></div>
+                        <div class="meta-item"><i class="ri-calendar-2-line"></i><span class="meta-item-label">起止时间:</span><span class="meta-item-value">${data['开始时间']} 至 ${data['结束时间']}</span></div>
+                        <div class="meta-item"><i class="ri-group-2-line"></i><span class="meta-item-label">招募对象:</span><span class="meta-item-value">${data['招募对象']}</span></div>
+                    `;
+                    
+                    document.getElementById('position-select').value = "";
+                    document.getElementById('terms-checkbox').checked = false;
+                    hasClickedPDF = false;
+                    checkFormValidity();
+                    
+                    ui.modalOverlay.classList.add('visible');
+                    body.classList.add('no-scroll');
+                },
+                close() {
+                    ui.modalOverlay.classList.remove('visible');
+                    body.classList.remove('no-scroll');
+                }
+            };
+
+            function renderCards(data) {
+                ui.cardsContainer.innerHTML = '';
+                if (data.length === 0) { ui.cardsContainer.innerHTML = `<p>当前没有新的招募信息。</p>`; return; }
+                data.forEach(item => {
+                    const status = getRecruitmentStatus(item['开始时间'], item['结束时间']);
+                    const card = document.createElement('div');
+                    card.className = 'recruiting-card';
+                    card.dataset.id = item['自动编号'];
+                    card.innerHTML = `
+                        <div class="card-header"><h3>${item['场次名称']}</h3><p>${item['副标题']}</p></div>
+                        <div class="card-body">
+                            <div class="card-meta-item"><i class="ri-calendar-line"></i><span>${item['开始时间']} 至 ${item['结束时间']}</span></div>
+                            <div class="card-meta-item"><i class="ri-group-line"></i><span>招募对象: ${item['招募对象']}</span></div>
+                        </div>
+                        <div class="card-footer"><span class="status-badge status-${status.class}">${status.text}</span></div>
+                    `;
+                    ui.cardsContainer.appendChild(card);
+                });
+            }
+
+            async function initializePage() {
+                try {
+                    const response = await fetch(`${RECRUITING_DATA_URL}?v=${new Date().getTime()}`);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const csvText = await response.text();
+                    allRecruitments = parseCSV(csvText);
+                    renderCards(allRecruitments);
+                } catch (error) {
+                    console.error("Failed to load:", error);
+                    ui.cardsContainer.innerHTML = `<p style="color: red;">无法加载招募信息，请稍后重试。</p>`;
+                } finally {
+                    ui.loadingOverlay.style.opacity = '0';
+                    setTimeout(() => ui.loadingOverlay.style.display = 'none', 300);
+                }
+            }
+
+            ui.cardsContainer.addEventListener('click', (e) => {
+                const card = e.target.closest('.recruiting-card');
+                if (card) {
+                    const id = card.dataset.id;
+                    const data = allRecruitments.find(item => item['自动编号'] === id);
+                    if (data) modalLogic.open(data);
+                }
+            });
+            ui.modalCloseBtn.addEventListener('click', modalLogic.close);
+            ui.modalOverlay.addEventListener('click', (e) => {
+                if (e.target === ui.modalOverlay) modalLogic.close();
+            });
+
+            initializePage();
+        });
     </script>
 </body>
-
 </html>
